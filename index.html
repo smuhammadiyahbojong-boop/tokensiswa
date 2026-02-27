@@ -152,12 +152,18 @@ function login() {
     return;
   }
 
-  resultDiv.innerHTML = `
-    <div class="token-box">
-      Login Berhasil!<br><br>
-      Password Anda:<br>${siswa.token}
-    </div>
-  `;
+resultDiv.innerHTML = `
+  <div class="token-box">
+    Login Berhasil!<br><br>
+    Token Anda:<br>${siswa.token}
+  </div>
+
+  <a href="https://presenter.jivrus.com/p/1RYhC6iZvrvwCSDpSgpUBGpvScWc2HQKASFz5reVK7yU" target="_blank">
+    <button style="margin-top:15px;">
+      Lanjut ke Soal Al Islam
+    </button>
+  </a>
+`;
 }
 
 </script>
