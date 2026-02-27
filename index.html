@@ -14,7 +14,6 @@ body {
   height: 100vh;
   margin: 0;
 }
-
 .card {
   background: white;
   padding: 30px;
@@ -23,7 +22,6 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   text-align: center;
 }
-
 input {
   width: 100%;
   padding: 10px;
@@ -31,7 +29,6 @@ input {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-
 button {
   margin-top: 15px;
   padding: 10px;
@@ -43,16 +40,8 @@ button {
   border-radius: 5px;
   font-weight: bold;
 }
-
-button:hover {
-  background: #388E3C;
-}
-
-#result {
-  margin-top: 20px;
-  font-weight: bold;
-}
-
+button:hover { background: #388E3C; }
+#result { margin-top: 20px; font-weight: bold; }
 .token-box {
   background: #f4f4f4;
   padding: 15px;
@@ -68,8 +57,9 @@ button:hover {
 <div class="card">
 <h2>Login Siswa</h2>
 
-<input type="text" id="username" placeholder="Username (Nama Pen)">
-<input type="password" id="password" placeholder="Password">
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password (12345)">
+<input type="text" id="tokenInput" placeholder="Masukkan Token Anda">
 <button onclick="login()">Login</button>
 
 <div id="result"></div>
@@ -78,6 +68,7 @@ button:hover {
 <script>
 
 const dataSiswa = [
+
 {namaPen:"Aditya",password:"12345",token:"Aditya-8kL2"},
 {namaPen:"Agung",password:"12345",token:"Agung-X7mN"},
 {namaPen:"Alif",password:"12345",token:"Alif-p5Rs"},
@@ -94,12 +85,20 @@ const dataSiswa = [
 {namaPen:"M.Faiz",password:"12345",token:"M.Faiz-7yRm"},
 {namaPen:"Maulana",password:"12345",token:"Maulana-N1xV"},
 {namaPen:"Muhamad",password:"12345",token:"Muhamad-mR9v"},
+{namaPen:"Muhammadaldhi",password:"12345",token:"Muhammad-4tBw"},
+{namaPen:"Muhammadathar",password:"12345",token:"Muhammad-Y1zD"},
+{namaPen:"Muhammadfais",password:"12345",token:"Muhammad-6jKq"},
+{namaPen:"Muhammadhilal",password:"12345",token:"Muhammad-P8nL"},
+{namaPen:"Muhammadlucky",password:"12345",token:"Muhammad-u2Gh"},
+{namaPen:"Muhammadvarel",password:"12345",token:"Muhammad-5eRm"},
 {namaPen:"Noval",password:"12345",token:"Noval-9kXc"},
 {namaPen:"Nuven",password:"12345",token:"Nuven-w4Ty"},
 {namaPen:"Pandu",password:"12345",token:"Pandu-z1Vp"},
 {namaPen:"Pujo",password:"12345",token:"Pujo-7xMn"},
 {namaPen:"Riyan",password:"12345",token:"Riyan-L9fS"},
 {namaPen:"Viko",password:"12345",token:"Viko-v3Kt"},
+{namaPen:"Adityafirman",password:"12345",token:"Aditya-B5dH"},
+{namaPen:"Adityaveno",password:"12345",token:"Aditya-t8Wj"},
 {namaPen:"Akhadian",password:"12345",token:"Akhadian-3jPq"},
 {namaPen:"Ali",password:"12345",token:"Ali-G6yK"},
 {namaPen:"Alvin",password:"12345",token:"Alvin-fM0t"},
@@ -113,11 +112,16 @@ const dataSiswa = [
 {namaPen:"Firza",password:"12345",token:"Firza-L1vY"},
 {namaPen:"Gading",password:"12345",token:"Gading-6hNj"},
 {namaPen:"Galeh",password:"12345",token:"Galeh-9sPr"},
+{namaPen:"Muhamadafrizal",password:"12345",token:"Muhamad-4zKc"},
+{namaPen:"Muhamadrapa",password:"12345",token:"Muhamad-x7Tm"},
+{namaPen:"Muhammadafiqudin",password:"12345",token:"Muhammad-Hn2x"},
+{namaPen:"Muhammadmuzaki",password:"12345",token:"Muhammad-r9Vs"},
 {namaPen:"Naufal",password:"12345",token:"Naufal-K7bZ"},
 {namaPen:"Pramudya",password:"12345",token:"Pramudya-w1Md"},
 {namaPen:"Ramadhani",password:"12345",token:"Ramadhani-5pHj"},
 {namaPen:"Wilsen",password:"12345",token:"Wilsen-C0tF"},
 {namaPen:"Zaenal",password:"12345",token:"Zaenal-B7yG"},
+{namaPen:"Bayu",password:"12345",token:"Bayu-x6Nv"},
 {namaPen:"Akbar",password:"12345",token:"Akbar-S3mK"},
 {namaPen:"Aldira",password:"12345",token:"Aldira-t9Rc"},
 {namaPen:"Alya",password:"12345",token:"Alya-P4qD"},
@@ -142,21 +146,24 @@ const dataSiswa = [
 {namaPen:"Siti",password:"12345",token:"Siti-y9Fk"},
 {namaPen:"Tri",password:"12345",token:"Tri-d7Xc"},
 {namaPen:"Tsabut",password:"12345",token:"Tsabut-4mPw"}
+
 ];
 
 function login() {
 
-  const username = document.getElementById("username").value.trim().toLowerCase();
+  const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
+  const tokenInput = document.getElementById("tokenInput").value.trim();
   const resultDiv = document.getElementById("result");
 
   const siswa = dataSiswa.find(s =>
-    s.namaPen.toLowerCase() === username &&
-    s.password === password
+    s.namaPen === username &&
+    s.password === password &&
+    s.token === tokenInput
   );
 
   if (!siswa) {
-    resultDiv.innerHTML = "<span style='color:red'>Username atau password salah!</span>";
+    resultDiv.innerHTML = "<span style='color:red'>Data tidak cocok!</span>";
     return;
   }
 
