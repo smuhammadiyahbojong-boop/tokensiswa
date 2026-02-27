@@ -68,7 +68,7 @@ button:hover {
 <div class="card">
 <h2>Login Siswa</h2>
 
-<input type="text" id="username" placeholder="Nama Pen (username)">
+<input type="text" id="username" placeholder="Username (Nama Pen)">
 <input type="password" id="password" placeholder="Password">
 <button onclick="login()">Login</button>
 
@@ -77,25 +77,72 @@ button:hover {
 
 <script>
 
-/* ================= DATABASE ================= */
-
 const dataSiswa = [
-  {nama:"Aditya Firmansyah", namaPen:"Aditya", password:"12345", token:"Aditya-8kL2"},
-  {nama:"Agung Joyo Kusumo", namaPen:"Agung", password:"12345", token:"Agung-X7mN"},
-  {nama:"Alif Puji Setiawan", namaPen:"Alif", password:"12345", token:"Alif-p5Rs"},
-  {nama:"Ananda Arya Zulfikar", namaPen:"Ananda", password:"12345", token:"Ananda-A9tV"},
-  {nama:"Asendy Aditya", namaPen:"Asendy", password:"12345", token:"Asendy-f3Wj"},
-  {nama:"Bagus Nugroho", namaPen:"Bagus", password:"12345", token:"Bagus-b7Yx"},
-  {nama:"Evan Alfahcrudin", namaPen:"Evan", password:"12345", token:"Evan-H1vP"},
-  {nama:"Febrian Lutfi Arisqi", namaPen:"Febrian", password:"12345", token:"Febrian-q6Nf"},
-  {nama:"Galih Raditya Saputra", namaPen:"Galih", password:"12345", token:"Galih-3mDr"},
-  {nama:"Iqbal Alfahrezi Zain", namaPen:"Iqbal", password:"12345", token:"Iqbal-K5sT"},
-  {nama:"Kevin Ega Saputra", namaPen:"Kevin", password:"12345", token:"Kevin-r8Bc"},
-  {nama:"Khoerum Mintoha", namaPen:"Khoerum", password:"12345", token:"Khoerum-W2zP"},
-  {nama:"Kurniawan", namaPen:"Kurniawan", password:"12345", token:"Kurniawan-g4Hq"}
+{namaPen:"Aditya",password:"12345",token:"Aditya-8kL2"},
+{namaPen:"Agung",password:"12345",token:"Agung-X7mN"},
+{namaPen:"Alif",password:"12345",token:"Alif-p5Rs"},
+{namaPen:"Ananda",password:"12345",token:"Ananda-A9tV"},
+{namaPen:"Asendy",password:"12345",token:"Asendy-f3Wj"},
+{namaPen:"Bagus",password:"12345",token:"Bagus-b7Yx"},
+{namaPen:"Evan",password:"12345",token:"Evan-H1vP"},
+{namaPen:"Febrian",password:"12345",token:"Febrian-q6Nf"},
+{namaPen:"Galih",password:"12345",token:"Galih-3mDr"},
+{namaPen:"Iqbal",password:"12345",token:"Iqbal-K5sT"},
+{namaPen:"Kevin",password:"12345",token:"Kevin-r8Bc"},
+{namaPen:"Khoerum",password:"12345",token:"Khoerum-W2zP"},
+{namaPen:"Kurniawan",password:"12345",token:"Kurniawan-g4Hq"},
+{namaPen:"M.Faiz",password:"12345",token:"M.Faiz-7yRm"},
+{namaPen:"Maulana",password:"12345",token:"Maulana-N1xV"},
+{namaPen:"Muhamad",password:"12345",token:"Muhamad-mR9v"},
+{namaPen:"Noval",password:"12345",token:"Noval-9kXc"},
+{namaPen:"Nuven",password:"12345",token:"Nuven-w4Ty"},
+{namaPen:"Pandu",password:"12345",token:"Pandu-z1Vp"},
+{namaPen:"Pujo",password:"12345",token:"Pujo-7xMn"},
+{namaPen:"Riyan",password:"12345",token:"Riyan-L9fS"},
+{namaPen:"Viko",password:"12345",token:"Viko-v3Kt"},
+{namaPen:"Akhadian",password:"12345",token:"Akhadian-3jPq"},
+{namaPen:"Ali",password:"12345",token:"Ali-G6yK"},
+{namaPen:"Alvin",password:"12345",token:"Alvin-fM0t"},
+{namaPen:"Arvian",password:"12345",token:"Arvian-2vBc"},
+{namaPen:"Bayu",password:"12345",token:"Bayu-X9zR"},
+{namaPen:"Denis",password:"12345",token:"Denis-5sWk"},
+{namaPen:"Dwi",password:"12345",token:"Dwi-m4Lt"},
+{namaPen:"Fahrul",password:"12345",token:"Fahrul-Q7pB"},
+{namaPen:"Farel",password:"12345",token:"Farel-8nJh"},
+{namaPen:"Faros",password:"12345",token:"Faros-2dFg"},
+{namaPen:"Firza",password:"12345",token:"Firza-L1vY"},
+{namaPen:"Gading",password:"12345",token:"Gading-6hNj"},
+{namaPen:"Galeh",password:"12345",token:"Galeh-9sPr"},
+{namaPen:"Naufal",password:"12345",token:"Naufal-K7bZ"},
+{namaPen:"Pramudya",password:"12345",token:"Pramudya-w1Md"},
+{namaPen:"Ramadhani",password:"12345",token:"Ramadhani-5pHj"},
+{namaPen:"Wilsen",password:"12345",token:"Wilsen-C0tF"},
+{namaPen:"Zaenal",password:"12345",token:"Zaenal-B7yG"},
+{namaPen:"Akbar",password:"12345",token:"Akbar-S3mK"},
+{namaPen:"Aldira",password:"12345",token:"Aldira-t9Rc"},
+{namaPen:"Alya",password:"12345",token:"Alya-P4qD"},
+{namaPen:"Aziz",password:"12345",token:"Aziz-k8Xm"},
+{namaPen:"Banyu",password:"12345",token:"Banyu-j1Fb"},
+{namaPen:"Dika",password:"12345",token:"Dika-v6Gy"},
+{namaPen:"Dinda",password:"12345",token:"Dinda-W2dN"},
+{namaPen:"Fina",password:"12345",token:"Fina-5zWp"},
+{namaPen:"Laela",password:"12345",token:"Laela-Qc4L"},
+{namaPen:"Lailatul",password:"12345",token:"Lailatul-8uXg"},
+{namaPen:"Lusiana",password:"12345",token:"Lusiana-rN6t"},
+{namaPen:"Nok",password:"12345",token:"Nok-K3vM"},
+{namaPen:"Olivia",password:"12345",token:"Olivia-z9Pb"},
+{namaPen:"Prajna",password:"12345",token:"Prajna-4wRq"},
+{namaPen:"Putri",password:"12345",token:"Putri-G1hL"},
+{namaPen:"Qonita",password:"12345",token:"Qonita-f0Ys"},
+{namaPen:"Raffi",password:"12345",token:"Raffi-9vNc"},
+{namaPen:"Rangga",password:"12345",token:"Rangga-H2bZ"},
+{namaPen:"Rina",password:"12345",token:"Rina-5jWv"},
+{namaPen:"Risma",password:"12345",token:"Risma-M8pL"},
+{namaPen:"Shabira",password:"12345",token:"Shabira-3tRs"},
+{namaPen:"Siti",password:"12345",token:"Siti-y9Fk"},
+{namaPen:"Tri",password:"12345",token:"Tri-d7Xc"},
+{namaPen:"Tsabut",password:"12345",token:"Tsabut-4mPw"}
 ];
-
-/* ================= LOGIN ================= */
 
 function login() {
 
