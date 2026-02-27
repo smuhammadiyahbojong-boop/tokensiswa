@@ -3,93 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login Token Siswa</title>
+<title>Login Siswa</title>
 
 <style>
-* { box-sizing: border-box; }
-
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0;
 }
 
-.card {
-  background: #ffffff;
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
   width: 90%;
-  max-width: 380px;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   text-align: center;
 }
 
 h2 {
   margin-bottom: 20px;
-  color: #2E7D32;
 }
 
 input {
   width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  border-radius: 10px;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
 }
 
 button {
   width: 100%;
-  padding: 14px;
-  border-radius: 10px;
+  padding: 12px;
+  margin-top: 10px;
   border: none;
-  background: #4CAF50;
+  border-radius: 8px;
+  background: #4e73df;
   color: white;
   font-size: 16px;
-  font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
-  background: #388E3C;
+  background: #2e59d9;
 }
 
 .token-box {
   margin-top: 20px;
   padding: 15px;
-  background: #f4f4f4;
-  border-radius: 12px;
-  font-weight: bold;
-  word-break: break-all;
+  border-radius: 10px;
+  background: #f8f9fc;
+  border: 1px solid #d1d3e2;
+  font-size: 15px;
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #555;
+}
+
+.hidden {
+  display: none;
 }
 
 .error {
-  margin-top: 15px;
   color: red;
-  font-weight: bold;
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
 }
 </style>
 </head>
-
 <body>
 
-<div class="card">
+<div class="container">
   <h2>Login Siswa</h2>
 
-  <input type="text" id="username" placeholder="Masukkan Username">
-  <input type="password" id="password" placeholder="Masukkan Password">
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
 
-  <button onclick="login()">Login</button>
+  <button onclick="login()">LOGIN</button>
 
   <div id="result"></div>
+
+  <div id="tombolSoal" class="hidden">
+    <a href="https://forms.gle/ISI_LINK_FORM_ANDA" target="_blank">
+      <button>Lanjut ke Soal</button>
+    </a>
+  </div>
 </div>
 
 <script>
-
 const dataSiswa = [
 
 {namaPen:"Aditya",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
@@ -133,54 +148,44 @@ const dataSiswa = [
 {namaPen:"Alya",password:"12345",token:"Alya-P4qD"},
 {namaPen:"Aziz",password:"12345",token:"Aziz-k8Xm"},
 {namaPen:"Tsabut",password:"12345",token:"Tsabut-4mPw"}
-
 ];
 
 function login() {
-
-  const username = document.getElementById("username").value.trim().toLowerCase();
+  const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
   const resultDiv = document.getElementById("result");
+  const tombolSoal = document.getElementById("tombolSoal");
 
   const siswa = dataSiswa.find(s =>
-    s.namaPen.toLowerCase() === username &&
+    s.namaPen.toLowerCase() === username.toLowerCase() &&
     s.password === password
   );
 
-  if (!siswa) {
-    resultDiv.innerHTML = "<div class='error'>Username atau Password salah!</div>";
-    return;
+  if (siswa) {
+
+    resultDiv.innerHTML = `
+      <div class="token-box">
+        <div class="success"><strong>Login Berhasil!</strong></div><br>
+        <strong>${siswa.token}</strong>
+        <div class="note">
+          Token digunakan untuk mengerjakan soal,
+          silahkan di ingat ingat
+        </div>
+      </div>
+    `;
+
+    // Cek apakah token valid
+    if (!siswa.token.includes("Mohon Maaf")) {
+      tombolSoal.classList.remove("hidden");
+    } else {
+      tombolSoal.classList.add("hidden");
+    }
+
+  } else {
+    resultDiv.innerHTML = "<div class='error'>Username atau password salah!</div>";
+    tombolSoal.classList.add("hidden");
   }
-
-resultDiv.innerHTML = `
-  <div class="token-box">
-    <strong>Login Berhasil!</strong><br><br>
-    <strong>Token Anda:</strong><br>
-    ${siswa.token}
-    <br><br>
-    <small style="color:#555;">
-      Token digunakan untuk mengerjakan soal, silahkan di ingat ingat!!
-    </small>
-  </div>
-
-  <div style="margin-top:15px; display:flex; flex-direction:column; gap:10px;">
-
-    <a href="https://presenter.jivrus.com/p/1RYhC6iZvrvwCSDpSgpUBGpvScWc2HQKASFz5reVK7yU" target="_blank">
-      <button style="width:100%;">
-        Lanjut ke Ke Soal Al Islam
-      </button>
-    </a>
-
-    <a href="https://forms.gle/FORMKEDUA" target="_blank">
-      <button style="width:100%; background:#2196F3;">
-        Lanjut ke Google Form 2
-      </button>
-    </a>
-
-  </div>
-`;
 }
-
 </script>
 
 </body>
