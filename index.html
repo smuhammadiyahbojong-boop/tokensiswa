@@ -1,86 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login Token Siswa</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #4CAF50, #2E7D32);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login Token Siswa</title>
 
-    .card {
-      background: white;
-      padding: 30px;
-      width: 350px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      text-align: center;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
 
-    h2 {
-      margin-bottom: 20px;
-    }
+.card {
+  background: white;
+  padding: 30px;
+  width: 350px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+}
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
 
-    button {
-      margin-top: 15px;
-      padding: 10px;
-      width: 100%;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      font-weight: bold;
-    }
+button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
 
-    button:hover {
-      background: #388E3C;
-    }
+button:hover {
+  background: #388E3C;
+}
 
-    #result {
-      margin-top: 20px;
-      font-weight: bold;
-    }
+#result {
+  margin-top: 20px;
+  font-weight: bold;
+}
 
-    .token-box {
-      background: #f4f4f4;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 10px;
-      word-break: break-all;
-    }
-  </style>
+.token-box {
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  word-break: break-all;
+}
+</style>
 </head>
+
 <body>
 
 <div class="card">
-  <h2>Login Siswa</h2>
+<h2>Login Siswa</h2>
 
-  <input type="text" id="username" placeholder="Nama atau Nama Pen">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
+<input type="text" id="username" placeholder="Nama Pen (username)">
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
 
-  <div id="result"></div>
+<div id="result"></div>
 </div>
 
 <script>
-/* ==========================
-   DATABASE SISWA
-   ========================== */
+
+/* ================= DATABASE ================= */
 
 const dataSiswa = [
   {nama:"Aditya Firmansyah", namaPen:"Aditya", password:"12345", token:"Aditya-8kL2"},
@@ -95,108 +92,32 @@ const dataSiswa = [
   {nama:"Iqbal Alfahrezi Zain", namaPen:"Iqbal", password:"12345", token:"Iqbal-K5sT"},
   {nama:"Kevin Ega Saputra", namaPen:"Kevin", password:"12345", token:"Kevin-r8Bc"},
   {nama:"Khoerum Mintoha", namaPen:"Khoerum", password:"12345", token:"Khoerum-W2zP"},
-  {nama:"Kurniawan", namaPen:"Kurniawan", password:"12345", token:"Kurniawan-g4Hq"},
-  {nama:"M.Faiz Wahyu Utopo", namaPen:"M.Faiz", password:"12345", token:"M.Faiz-7yRm"},
-  {nama:"Maulana", namaPen:"Maulana", password:"12345", token:"Maulana-N1xV"},
-  {nama:"Muhamad Zaki", namaPen:"Muhamad", password:"12345", token:"Muhamad-mR9v"},
-  {nama:"Muhammad Aldhi", namaPen:"Muhammad", password:"12345", token:"Muhammad-4tBw"},
-  {nama:"Muhammad Athar Muzakki", namaPen:"Muhammad", password:"12345", token:"Muhammad-Y1zD"},
-  {nama:"Muhammad Fais Risqi", namaPen:"Muhammad", password:"12345", token:"Muhammad-6jKq"},
-  {nama:"Muhammad Hilal", namaPen:"Muhammad", password:"12345", token:"Muhammad-P8nL"},
-  {nama:"Muhammad Lucky Pradana", namaPen:"Muhammad", password:"12345", token:"Muhammad-u2Gh"},
-  {nama:"Muhammad Varelino Nugroho", namaPen:"Muhammad", password:"12345", token:"Muhammad-5eRm"},
-  {nama:"Noval Aditya Winanto", namaPen:"Noval", password:"12345", token:"Noval-9kXc"},
-  {nama:"Nuven Feldy Ranza", namaPen:"Nuven", password:"12345", token:"Nuven-w4Ty"},
-  {nama:"Pandu Saputra", namaPen:"Pandu", password:"12345", token:"Pandu-z1Vp"},
-  {nama:"Pujo Widianto", namaPen:"Pujo", password:"12345", token:"Pujo-7xMn"},
-  {nama:"Riyan Ferdiawan", namaPen:"Riyan", password:"12345", token:"Riyan-L9fS"},
-  {nama:"Viko Ramadani", namaPen:"Viko", password:"12345", token:"Viko-v3Kt"},
-  {nama:"Aditya Firmansyah", namaPen:"Aditya", password:"12345", token:"Aditya-B5dH"},
-  {nama:"Aditya Veno Saputra", namaPen:"Aditya", password:"12345", token:"Aditya-t8Wj"},
-  {nama:"Akhadian Fajar Shauma", namaPen:"Akhadian", password:"12345", token:"Akhadian-3jPq"},
-  {nama:"Ali Ammar Ismail", namaPen:"Ali", password:"12345", token:"Ali-G6yK"},
-  {nama:"Alvin Rafael Yulianto", namaPen:"Alvin", password:"12345", token:"Alvin-fM0t"},
-  {nama:"Arvian Nur Hidayat", namaPen:"Arvian", password:"12345", token:"Arvian-2vBc"},
-  {nama:"Bayu Satrio Wicaksono", namaPen:"Bayu", password:"12345", token:"Bayu-X9zR"},
-  {nama:"Denis Arfansyah", namaPen:"Denis", password:"12345", token:"Denis-5sWk"},
-  {nama:"Dwi Anggoro", namaPen:"Dwi", password:"12345", token:"Dwi-m4Lt"},
-  {nama:"Fahrul Dafid", namaPen:"Fahrul", password:"12345", token:"Fahrul-Q7pB"},
-  {nama:"Farel Dwi Febriansyah", namaPen:"Farel", password:"12345", token:"Farel-8nJh"},
-  {nama:"Faros Zuhdi Arbas", namaPen:"Faros", password:"12345", token:"Faros-2dFg"},
-  {nama:"Firza Fazian Fahrezy", namaPen:"Firza", password:"12345", token:"Firza-L1vY"},
-  {nama:"Gading Febriyan", namaPen:"Gading", password:"12345", token:"Gading-6hNj"},
-  {nama:"Galeh Nur Hartyas", namaPen:"Galeh", password:"12345", token:"Galeh-9sPr"},
-  {nama:"Muhamad Afrizal Maulana", namaPen:"Muhamad", password:"12345", token:"Muhamad-4zKc"},
-  {nama:"Muhamad Rapa Septria", namaPen:"Muhamad", password:"12345", token:"Muhamad-x7Tm"},
-  {nama:"Muhammad Afiqudin", namaPen:"Muhammad", password:"12345", token:"Muhammad-Hn2x"},
-  {nama:"Muhammad Muzaki", namaPen:"Muhammad", password:"12345", token:"Muhammad-r9Vs"},
-  {nama:"Naufal Luthfi Hanif", namaPen:"Naufal", password:"12345", token:"Naufal-K7bZ"},
-  {nama:"Pramudya Edwin Ismoyojathi", namaPen:"Pramudya", password:"12345", token:"Pramudya-w1Md"},
-  {nama:"Ramadhani Pratama", namaPen:"Ramadhani", password:"12345", token:"Ramadhani-5pHj"},
-  {nama:"Wilsen Agustian", namaPen:"Wilsen", password:"12345", token:"Wilsen-C0tF"},
-  {nama:"Zaenal Arifin", namaPen:"Zaenal", password:"12345", token:"Zaenal-B7yG"},
-  {nama:"Bayu Laksono", namaPen:"Bayu", password:"12345", token:"Bayu-x6Nv"},
-  {nama:"Akbar Yuliyanto", namaPen:"Akbar", password:"12345", token:"Akbar-S3mK"},
-  {nama:"Aldira Riskhiana Putri", namaPen:"Aldira", password:"12345", token:"Aldira-t9Rc"},
-  {nama:"Alya Najwa Solikhah", namaPen:"Alya", password:"12345", token:"Alya-P4qD"},
-  {nama:"Aziz Nurrochim", namaPen:"Aziz", password:"12345", token:"Aziz-k8Xm"},
-  {nama:"Banyu Bumi Wijaya", namaPen:"Banyu", password:"12345", token:"Banyu-j1Fb"},
-  {nama:"Dika Nadziatussalam", namaPen:"Dika", password:"12345", token:"Dika-v6Gy"},
-  {nama:"Dinda Oktaviani", namaPen:"Dinda", password:"12345", token:"Dinda-W2dN"},
-  {nama:"Fina Salsabila", namaPen:"Fina", password:"12345", token:"Fina-5zWp"},
-  {nama:"Laela Purnama Sari", namaPen:"Laela", password:"12345", token:"Laela-Qc4L"},
-  {nama:"Lailatul Maghfiroh", namaPen:"Lailatul", password:"12345", token:"Lailatul-8uXg"},
-  {nama:"Lusiana Syifa", namaPen:"Lusiana", password:"12345", token:"Lusiana-rN6t"},
-  {nama:"Nok Ajeng Kundiharti", namaPen:"Nok", password:"12345", token:"Nok-K3vM"},
-  {nama:"Olivia Armantifa Zalfa", namaPen:"Olivia", password:"12345", token:"Olivia-z9Pb"},
-  {nama:"Prajna Paramita", namaPen:"Prajna", password:"12345", token:"Prajna-4wRq"},
-  {nama:"Putri Ayu", namaPen:"Putri", password:"12345", token:"Putri-G1hL"},
-  {nama:"Qonita Khairunisa", namaPen:"Qonita", password:"12345", token:"Qonita-f0Ys"},
-  {nama:"Raffi Ahmad Julian", namaPen:"Raffi", password:"12345", token:"Raffi-9vNc"},
-  {nama:"Rangga Aditya Putra", namaPen:"Rangga", password:"12345", token:"Rangga-H2bZ"},
-  {nama:"Rina Apriliana", namaPen:"Rina", password:"12345", token:"Rina-5jWv"},
-  {nama:"Risma Novita Sari", namaPen:"Risma", password:"12345", token:"Risma-M8pL"},
-  {nama:"Shabira Aulia", namaPen:"Shabira", password:"12345", token:"Shabira-3tRs"},
-  {nama:"Siti Sahwa Indriani", namaPen:"Siti", password:"12345", token:"Siti-y9Fk"},
-  {nama:"Tri Mulyani", namaPen:"Tri", password:"12345", token:"Tri-d7Xc"},
-  {nama:"Tsabut Goro Adji Nugroho", namaPen:"Tsabut", password:"12345", token:"Tsabut-4mPw"}
-];}
-  // Tambahkan semua siswa di sini
+  {nama:"Kurniawan", namaPen:"Kurniawan", password:"12345", token:"Kurniawan-g4Hq"}
 ];
 
-/* ==========================
-   LOGIN FUNCTION
-   ========================== */
+/* ================= LOGIN ================= */
 
 function login() {
-  const username = document.getElementById("username").value.trim();
+
+  const username = document.getElementById("username").value.trim().toLowerCase();
   const password = document.getElementById("password").value.trim();
   const resultDiv = document.getElementById("result");
 
   const siswa = dataSiswa.find(s =>
-    (s.nama === username || s.namaPen === username) &&
+    s.namaPen.toLowerCase() === username &&
     s.password === password
   );
 
   if (!siswa) {
-    resultDiv.innerHTML = "<span style='color:red'>Login gagal!</span>";
+    resultDiv.innerHTML = "<span style='color:red'>Username atau password salah!</span>";
     return;
   }
-
-  // Cek apakah token sudah pernah dibuka di device ini
-  if (localStorage.getItem("token_"+siswa.nama)) {
-    resultDiv.innerHTML =
-      "<span style='color:red'>Token sudah pernah dibuka di perangkat ini!</span>";
-    return;
-  }
-
-  // Simpan status di localStorage (1x per device)
-  localStorage.setItem("token_"+siswa.nama, "SUDAH");
 
   resultDiv.innerHTML =
     "Login Berhasil!<br><br>Token Anda:" +
     "<div class='token-box'>" + siswa.token + "</div>";
 }
+
 </script>
 
 </body>
