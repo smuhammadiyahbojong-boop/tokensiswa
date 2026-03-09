@@ -7,239 +7,240 @@
 
 <style>
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #4e73df, #1cc88a);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
 .container {
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
 }
 
 h2 {
-  margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #4e73df;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #4e73df;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
-  background: #2e59d9;
+  background: #2e59d9;
 }
 
 .token-box {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  background: #f8f9fc;
-  border: 1px solid #d1d3e2;
-  font-size: 15px;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #f8f9fc;
+  border: 1px solid #d1d3e2;
+  font-size: 15px;
 }
 
-/* Style tambahan untuk memisahkan baris info */
 .info-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-  border-bottom: 1px dashed #ddd;
-  padding-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 5px;
 }
 
 .info-row:last-child {
-  border-bottom: none;
+  border-bottom: none;
 }
 
 .note {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #555;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #555;
 }
 
 .hidden {
-  display: none;
+  display: none;
 }
 
 .error {
-  color: red;
-  margin-top: 10px;
+  color: red;
+  margin-top: 10px;
 }
 
 .success {
-  color: green;
-  margin-bottom: 10px;
+  color: green;
+  margin-bottom: 10px;
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h2>Login Siswa</h2>
+  <h2>Login Siswa</h2>
 
-  <input type="text" id="username" placeholder="Username">
-  <input type="password" id="password" placeholder="Password">
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
 
-  <button onclick="login()">LOGIN</button>
+  <button onclick="login()">LOGIN</button>
 
-  <div id="result"></div>
+  <div id="result"></div>
 
-  <div id="tombolSoal" class="hidden">
-    <a href="https://smuhammadiyahbojong-boop.github.io/cbtsmk/" target="_blank">
-      <button>Masuk Ke Soal Ujian</button>
-    </a>
-  </div>
+  <div id="tombolSoal" class="hidden">
+    <a href="https://smuhammadiyahbojong-boop.github.io/cbtsmk/" target="_blank">
+      <button>Masuk Ke Soal Ujian</button>
+    </a>
+  </div>
 </div>
 
 <script>
 const dataSiswa = [
-  {namaPen:"Aditya",password:"12345",token:"Aditya-8kL2"},
-  {namaPen:"Agung",password:"12345",token:"Agung-X7mN"},
-  {namaPen:"Alif",password:"12345",token:"Alif-p5Rs"},
-  {namaPen:"Ananda",password:"12345",token:"Ananda-A9tV"},
-  {namaPen:"Asendy",password:"12345",token:"Asendy-f3Wj"},
-  {namaPen:"Bagus",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
-  {namaPen:"Evan",password:"12345",token:"Evan-H1vP"},
-  {namaPen:"Febrian",password:"12345",token:"Febrian-q6Nf"},
-  {namaPen:"Galih",password:"12345",token:"Galih-3mDr"},
-  {namaPen:"Iqbal",password:"12345",token:"Iqbal-K5sT"},
-  {namaPen:"Kevin",password:"12345",token:"Kevin-r8Bc"},
-  {namaPen:"Khoerum",password:"12345",token:"Khoerum-W2zP"},
-  {namaPen:"Kurniawan",password:"12345",token:"Kurniawan-g4Hq"},
-  {namaPen:"M.Faiz",password:"12345",token:"M.Faiz-7yRm"},
-  {namaPen:"Maulana",password:"12345",token:"Maulana-N1xV"},
-  {namaPen:"Muhamad",password:"12345",token:"Muhamad-mR9v"},
-  {namaPen:"Muhammadaldhi",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
-  {namaPen:"Muhammadathar",password:"12345",token:"Muhammad-Y1zD"},
-  {namaPen:"Muhammadfais",password:"12345",token:"Muhammad-6jKq"},
-  {namaPen:"Muhammadhilal",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
-  {namaPen:"Muhammadlucky",password:"12345",token:"Muhammad-u2Gh"},
-  {namaPen:"Muhammadvarel",password:"12345",token:"Muhammad-5eRm"},
-  {namaPen:"Noval",password:"12345",token:"Noval-9kXc"},
-  {namaPen:"Nuven",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
-  {namaPen:"Pandu",password:"12345",token:"Pandu-z1Vp"},
-  {namaPen:"Pujo",password:"12345",token:"Pujo-7xMn"},
-  {namaPen:"Riyan",password:"12345",token:"Riyan-L9fS"},
-  {namaPen:"Viko",password:"12345",token:"Viko-v3Kt"},
-  {namaPen:"Adityafirman",password:"12345",token:"Aditya-B5dH"},
-  {namaPen:"Adityaveno",password:"12345",token:"Muhammad-5eRm"},
-  {namaPen:"Akhadian",password:"12345",token:"Akhadian-3jPq"},
-  {namaPen:"Ali",password:"12345",token:"Ali-G6yK"},
-  {namaPen:"Alvin",password:"12345",token:"Alvin-fM0t"},
-  {namaPen:"Arvian",password:"12345",token:"Arvian-2vBc"},
-  {namaPen:"Bayu",password:"12345",token:"Bayu-X9zR"},
-  {namaPen:"Denis",password:"12345",token:"Denis-5sWk"},
-  {namaPen:"Dwi",password:"12345",token:"Dwi-m4Lt"},
-  {namaPen:"Fahrul",password:"12345",token:"Fahrul-Q7pB"},
-  {namaPen:"Farel",password:"12345",token:"Farel-8nJh"},
-  {namaPen:"Firza",password:"12345",token:"Firza-L1vY"},
-  {namaPen:"Gading",password:"12345",token:"Gading-6hNj"},
-  {namaPen:"Galeh",password:"12345",token:"Galeh-9sPr"},
-  {namaPen:"Muhamadafrizal",password:"12345",token:"Muhamad-4zKc"},
-  {namaPen:"Muhamadrapa",password:"12345",token:"Muhamad-x7Tm"},
-  {namaPen:"Muhammadafiqudin",password:"12345",token:"Muhammad-Hn2x"},
-  {namaPen:"Muhammadmuzaki",password:"12345",token:"Muhammad-r9Vs"},
-  {namaPen:"Naufal",password:"12345",token:"Naufal-K7bZ"},
-  {namaPen:"Pramudya",password:"12345",token:"Pramudya-w1Md"},
-  {namaPen:"Ramadhani",password:"12345",token:"Ramadhani-5pHj"},
-  {namaPen:"Wilsen",password:"12345",token:"Wilsen-C0tF"},
-  {namaPen:"Zaenal",password:"12345",token:"Zaenal-B7yG"},
-  {namaPen:"BayuLak",password:"12345",token:"Bayu-x6Nv"},
-  {namaPen:"Akbar",password:"12345",token:"Akbar-S3mK"},
-  {namaPen:"Aldira",password:"12345",token:"Aldira-t9Rc"},
-  {namaPen:"Alya",password:"12345",token:"Alya-P4qD"},
-  {namaPen:"Aziz",password:"12345",token:"Aziz-k8Xm"},
-  {namaPen:"Banyu",password:"12345",token:"Banyu-j1Fb"},
-  {namaPen:"Dika",password:"12345",token:"Dika-v6Gy"},
-  {requested_info: "Dinda", password: "12345", token: "Dinda-W2dN"},
-  {namaPen:"Dinda",password:"12345",token:"Dinda-W2dN"},
-  {namaPen:"Fina",password:"12345",token:"Fina-5zWp"},
-  {namaPen:"Laela",password:"12345",token:"Laela-Qc4L"},
-  {namaPen:"Lailatul",password:"12345",token:"Lailatul-8uXg"},
-  {namaPen:"Lusiana",password:"12345",token:"Lusiana-rN6t"},
-  {namaPen:"Nok",password:"12345",token:"Nok-K3vM"},
-  {namaPen:"Olivia",password:"12345",token:"Olivia-z9Pb"},
-  {namaPen:"Prajna",password:"12345",token:"Prajna-4wRq"},
-  {namaPen:"Putri",password:"12345",token:"Putri-G1hL"},
-  {namaPen:"Qonita",password:"12345",token:"Qonita-f0Ys"},
-  {namaPen:"Raffi",password:"12345",token:"Raffi-9vNc"},
-  {namaPen:"Rangga",password:"12345",token:"Rangga-H2bZ"},
-  {namaPen:"Rina",password:"12345",token:"Rina-5jWv"},
-  {namaPen:"Risma",password:"12345",token:"Risma-M8pL"},
-  {namaPen:"Shabira",password:"12345",token:"Shabira-3tRs"},
-  {namaPen:"Siti",password:"12345",token:"Siti-y9Fk"},
-  {namaPen:"Tri",password:"12345",token:"Tri-d7Xc"},
-  {namaPen:"Tsabut",password:"12345",token:"Tsabut-4mPw"}
+  {namaPen:"Aditya",password:"12345",token:"Aditya-8kL2"},
+  {namaPen:"Agung",password:"12345",token:"Agung-X7mN"},
+  {namaPen:"Alif",password:"12345",token:"Alif-p5Rs"},
+  {namaPen:"Ananda",password:"12345",token:"Ananda-A9tV"},
+  {namaPen:"Asendy",password:"12345",token:"Asendy-f3Wj"},
+  {namaPen:"Bagus",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
+  {namaPen:"Evan",password:"12345",token:"Evan-H1vP"},
+  {namaPen:"Febrian",password:"12345",token:"Febrian-q6Nf"},
+  {namaPen:"Galih",password:"12345",token:"Galih-3mDr"},
+  {namaPen:"Iqbal",password:"12345",token:"Iqbal-K5sT"},
+  {namaPen:"Kevin",password:"12345",token:"Kevin-r8Bc"},
+  {namaPen:"Khoerum",password:"12345",token:"Khoerum-W2zP"},
+  {namaPen:"Kurniawan",password:"12345",token:"Kurniawan-g4Hq"},
+  {namaPen:"M.Faiz",password:"12345",token:"M.Faiz-7yRm"},
+  {namaPen:"Maulana",password:"12345",token:"Maulana-N1xV"},
+  {namaPen:"Muhamad",password:"12345",token:"Muhamad-mR9v"},
+  {namaPen:"Muhammadaldhi",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
+  {namaPen:"Muhammadathar",password:"12345",token:"Muhammad-Y1zD"},
+  {namaPen:"Muhammadfais",password:"12345",token:"Muhammad-6jKq"},
+  {namaPen:"Muhammadhilal",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
+  {namaPen:"Muhammadlucky",password:"12345",token:"Muhammad-u2Gh"},
+  {namaPen:"Muhammadvarel",password:"12345",token:"Muhammad-5eRm"},
+  {namaPen:"Noval",password:"12345",token:"Noval-9kXc"},
+  {namaPen:"Nuven",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
+  {namaPen:"Pandu",password:"12345",token:"Pandu-z1Vp"},
+  {namaPen:"Pujo",password:"12345",token:"Pujo-7xMn"},
+  {namaPen:"Riyan",password:"12345",token:"Riyan-L9fS"},
+  {namaPen:"Viko",password:"12345",token:"Viko-v3Kt"},
+  {namaPen:"Adityafirman",password:"12345",token:"Aditya-B5dH"},
+  {namaPen:"Adityaveno",password:"12345",token:"Muhammad-5eRm"},
+  {namaPen:"Akhadian",password:"12345",token:"Akhadian-3jPq"},
+  {namaPen:"Ali",password:"12345",token:"Ali-G6yK"},
+  {namaPen:"Alvin",password:"12345",token:"Alvin-fM0t"},
+  {namaPen:"Arvian",password:"12345",token:"Arvian-2vBc"},
+  {namaPen:"Bayu",password:"12345",token:"Bayu-X9zR"},
+  {namaPen:"Denis",password:"12345",token:"Denis-5sWk"},
+  {namaPen:"Dwi",password:"12345",token:"Dwi-m4Lt"},
+  {namaPen:"Fahrul",password:"12345",token:"Fahrul-Q7pB"},
+  {namaPen:"Farel",password:"12345",token:"Farel-8nJh"},
+  {namaPen:"Firza",password:"12345",token:"Firza-L1vY"},
+  {namaPen:"Gading",password:"12345",token:"Gading-6hNj"},
+  {namaPen:"Galeh",password:"12345",token:"Galeh-9sPr"},
+  {namaPen:"Muhamadafrizal",password:"12345",token:"Muhamad-4zKc"},
+  {namaPen:"Muhamadrapa",password:"12345",token:"Muhamad-x7Tm"},
+  {namaPen:"Muhammadafiqudin",password:"12345",token:"Muhammad-Hn2x"},
+  {namaPen:"Muhammadmuzaki",password:"12345",token:"Muhammad-r9Vs"},
+  {namaPen:"Naufal",password:"12345",token:"Naufal-K7bZ"},
+  {namaPen:"Pramudya",password:"12345",token:"Pramudya-w1Md"},
+  {namaPen:"Ramadhani",password:"12345",token:"Ramadhani-5pHj"},
+  {namaPen:"Wilsen",password:"12345",token:"Wilsen-C0tF"},
+  {namaPen:"Zaenal",password:"12345",token:"Zaenal-B7yG"},
+  {namaPen:"BayuLak",password:"12345",token:"Bayu-x6Nv"},
+  {namaPen:"Akbar",password:"12345",token:"Akbar-S3mK"},
+  {namaPen:"Aldira",password:"12345",token:"Aldira-t9Rc"},
+  {namaPen:"Alya",password:"12345",token:"Alya-P4qD"},
+  {namaPen:"Aziz",password:"12345",token:"Aziz-k8Xm"},
+  {namaPen:"Banyu",password:"12345",token:"Banyu-j1Fb"},
+  {namaPen:"Dika",password:"12345",token:"Dika-v6Gy"},
+  {namaPen:"Dinda",password:"12345",token:"Dinda-W2dN"},
+  {namaPen:"Fina",password:"12345",token:"Fina-5zWp"},
+  {namaPen:"Laela",password:"12345",token:"Laela-Qc4L"},
+  {namaPen:"Lailatul",password:"12345",token:"Lailatul-8uXg"},
+  {namaPen:"Lusiana",password:"12345",token:"Lusiana-rN6t"},
+  {namaPen:"Nok",password:"12345",token:"Nok-K3vM"},
+  {namaPen:"Olivia",password:"12345",token:"Olivia-z9Pb"},
+  {namaPen:"Prajna",password:"12345",token:"Prajna-4wRq"},
+  {namaPen:"Putri",password:"12345",token:"Putri-G1hL"},
+  {namaPen:"Qonita",password:"12345",token:"Qonita-f0Ys"},
+  {namaPen:"Raffi",password:"12345",token:"Raffi-9vNc"},
+  {namaPen:"Rangga",password:"12345",token:"Rangga-H2bZ"},
+  {namaPen:"Rina",password:"12345",token:"Rina-5jWv"},
+  {namaPen:"Risma",password:"12345",token:"Risma-M8pL"},
+  {namaPen:"Shabira",password:"12345",token:"Shabira-3tRs"},
+  {namaPen:"Siti",password:"12345",token:"Siti-y9Fk"},
+  {namaPen:"Tri",password:"12345",token:"Tri-d7Xc"},
+  {namaPen:"Tsabut",password:"12345",token:"Tsabut-4mPw"}
 ];
 
 function login() {
-  const usernameInput = document.getElementById("username").value.trim();
-  const passwordInput = document.getElementById("password").value.trim();
-  const resultDiv = document.getElementById("result");
-  const tombolSoal = document.getElementById("tombolSoal");
+  const usernameInput = document.getElementById("username").value.trim();
+  const passwordInput = document.getElementById("password").value.trim();
+  const resultDiv = document.getElementById("result");
+  const tombolSoal = document.getElementById("tombolSoal");
 
-  const siswa = dataSiswa.find(s =>
-    s.namaPen.toLowerCase() === usernameInput.toLowerCase() &&
-    s.password === passwordInput
-  );
+  // Validasi agar tidak error jika properti namaPen tidak ada atau input kosong
+  const siswa = dataSiswa.find(s => 
+    s.namaPen && 
+    s.namaPen.toLowerCase() === usernameInput.toLowerCase() && 
+    s.password === passwordInput
+  );
 
-  if (siswa) {
-    resultDiv.innerHTML = `
-      <div class="token-box">
-        <div class="success"><strong>Login Berhasil!</strong></div>
-        <div class="info-row">
-          <span><strong>Username:</strong></span>
-          <span>${siswa.namaPen}</span>
-        </div>
-        <div class="info-row">
-          <span><strong>Token:</strong></span>
-          <span>${siswa.token}</span>
-        </div>
-        <div class="note">
-          Username & Token digunakan untuk mengerjakan soal,
-          silahkan diingat-ingat.
-        </div>
-      </div>
-    `;
+  if (siswa) {
+    resultDiv.innerHTML = `
+      <div class="token-box">
+        <div class="success"><strong>Login Berhasil!</strong></div>
+        <div class="info-row">
+          <span><strong>Username:</strong></span>
+          <span>${siswa.namaPen}</span>
+        </div>
+        <div class="info-row">
+          <span><strong>Token:</strong></span>
+          <span>${siswa.token}</span>
+        </div>
+        <div class="note">
+          Username & Token digunakan untuk mengerjakan soal,
+          silahkan diingat-ingat.
+        </div>
+      </div>
+    `;
 
-    // Cek apakah token valid
-    if (!siswa.token.includes("Mohon Maaf")) {
-      tombolSoal.classList.remove("hidden");
-    } else {
-      tombolSoal.classList.add("hidden");
-    }
+    // Cek apakah token valid (bukan pesan administrasi)
+    if (siswa.token && !siswa.token.includes("Mohon Maaf")) {
+      tombolSoal.classList.remove("hidden");
+    } else {
+      tombolSoal.classList.add("hidden");
+    }
 
-  } else {
-    resultDiv.innerHTML = "<div class='error'>Username atau password salah!</div>";
-    tombolSoal.classList.add("hidden");
-  }
+  } else {
+    resultDiv.innerHTML = "<div class='error'>Username atau password salah!</div>";
+    tombolSoal.classList.add("hidden");
+  }
 }
 </script>
 
