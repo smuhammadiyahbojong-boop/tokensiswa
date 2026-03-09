@@ -1,188 +1,250 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBT Ujian SMK</title>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; flex-direction: column; 
-            user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;
-        }
-        .kotak { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box; }
-        .kotak-login { max-width: 350px; text-align: center; }
-        input[type="text"], select { box-sizing: border-box; width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
-        .btn-utama { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        .kotak-ujian { max-width: 800px; display: none; }
-        .header-ujian { display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; align-items: center; }
-        .timer { font-size: 28px; font-weight: bold; color: #dc3545; background: #ffeeba; padding: 5px 15px; border-radius: 5px; }
-        .opsi-jawaban { display: block; background: #f8f9fa; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ddd; cursor: pointer; }
-        .img-opsi { display: block; max-width: 200px; margin-top: 10px; border-radius: 4px; border: 1px solid #ccc; }
-        .navigasi-bawah { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
-        .btn-nav { padding: 10px 20px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; color: white; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Siswa</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #4e73df;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #2e59d9;
+}
+
+.token-box {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #f8f9fc;
+  border: 1px solid #d1d3e2;
+  font-size: 15px;
+}
+
+/* Style tambahan untuk memisahkan baris info */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 5px;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #555;
+}
+
+.hidden {
+  display: none;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
+  margin-bottom: 10px;
+}
+</style>
 </head>
 <body>
 
-    <div id="halaman-login" class="kotak kotak-login">
-        <h2>LOGIN CBT SMK</h2>
-        <select id="mapel">
-            <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-            <option value="Broadcasting" disabled>Dasar Broadcasting & Perfilman (Belum Mulai)</option>
-            <option value="Coding" disabled>Coding & Artificial Intelligence (Belum Mulai)</option>
-        </select>
-        <input type="text" id="nis" placeholder="Masukkan Username/NIS">
-        <input type="text" id="token" placeholder="Token Ujian">
-        <button class="btn-utama" onclick="prosesLogin()">MASUK UJIAN</button>
-        <p id="pesan"></p>
-    </div>
+<div class="container">
+  <h2>Login Siswa</h2>
 
-    <div id="halaman-ujian" class="kotak kotak-ujian">
-        <div class="header-ujian">
-            <div class="identitas">
-                <h3 id="judul-mapel">CBT SMK</h3>
-                <p id="info-siswa">Siswa: -</p>
-            </div>
-            <div class="timer" id="waktu-ujian">60:00</div>
-        </div>
-        <div id="area-soal"></div>
-        <div id="area-navigasi" class="navigasi-bawah" style="display: none;">
-            <button id="btn-prev" class="btn-nav" style="background:#6c757d" onclick="gantiSoal(-1)">Kembali</button>
-            <button id="btn-next" class="btn-nav" style="background:#007bff">Selanjutnya</button>
-        </div>
-    </div>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
 
-    <script>
-        const URL_API = "https://script.google.com/macros/s/AKfycbzAkFQPW7JWlN68BT4NJIAXxKGEkfGmPpCPI_aAJZx4a7G-vuOWECKk113L3ubMT9lB/exec";
-        
-        const jadwalUjian = {
-            "Bahasa Indonesia": { tanggal: "2026-03-09", buka: "07:30", tutup: "23:59" },
-            "Broadcasting": { tanggal: "2026-03-10", buka: "08:45", tutup: "23:59" },
-            "Coding": { tanggal: "2026-03-11", buka: "10:00", tutup: "23:59" }
-        };
+  <button onclick="login()">LOGIN</button>
 
-        let bankSoal = [], indexSoalSaatIni = 0, jawabanSiswa = {}, nisSiswaAktif = "", mapelAktif = "", durasiUjian = 3600, timerInterval, jumlahPelanggaran = 0;
+  <div id="result"></div>
 
-        function eksekusiTilang() {
-            if (document.getElementById("halaman-ujian").style.display === "block" && jumlahPelanggaran !== -999) {
-                jumlahPelanggaran++;
-                if (jumlahPelanggaran < 3) {
-                    alert(`⚠️ PERINGATAN (${jumlahPelanggaran}/3)!\nSistem mendeteksi Anda keluar layar atau menggunakan layar belah.`);
-                } else {
-                    alert("⛔ PELANGGARAN MAKSIMAL! Ujian dibatalkan otomatis.");
-                    resetKeLogin("Ujian dibatalkan (3x Keluar).");
-                }
-            }
-        }
-        window.addEventListener("blur", eksekusiTilang);
+  <div id="tombolSoal" class="hidden">
+    <a href="https://smuhammadiyahbojong-boop.github.io/cbtsmk/" target="_blank">
+      <button>Masuk Ke Soal Ujian</button>
+    </a>
+  </div>
+</div>
 
-        function resetKeLogin(pesanError) {
-            clearInterval(timerInterval);
-            document.getElementById("halaman-ujian").style.display = "none";
-            document.getElementById("halaman-login").style.display = "block";
-            document.getElementById("nis").value = "";
-            document.getElementById("token").value = "";
-            document.getElementById("pesan").style.color = "red";
-            document.getElementById("pesan").innerText = pesanError;
-            jumlahPelanggaran = 0; jawabanSiswa = {}; durasiUjian = 3600;
-        }
+<script>
+const dataSiswa = [
+  {namaPen:"Aditya",password:"12345",token:"Aditya-8kL2"},
+  {namaPen:"Agung",password:"12345",token:"Agung-X7mN"},
+  {namaPen:"Alif",password:"12345",token:"Alif-p5Rs"},
+  {namaPen:"Ananda",password:"12345",token:"Ananda-A9tV"},
+  {namaPen:"Asendy",password:"12345",token:"Asendy-f3Wj"},
+  {namaPen:"Bagus",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
+  {namaPen:"Evan",password:"12345",token:"Evan-H1vP"},
+  {namaPen:"Febrian",password:"12345",token:"Febrian-q6Nf"},
+  {namaPen:"Galih",password:"12345",token:"Galih-3mDr"},
+  {namaPen:"Iqbal",password:"12345",token:"Iqbal-K5sT"},
+  {namaPen:"Kevin",password:"12345",token:"Kevin-r8Bc"},
+  {namaPen:"Khoerum",password:"12345",token:"Khoerum-W2zP"},
+  {namaPen:"Kurniawan",password:"12345",token:"Kurniawan-g4Hq"},
+  {namaPen:"M.Faiz",password:"12345",token:"M.Faiz-7yRm"},
+  {namaPen:"Maulana",password:"12345",token:"Maulana-N1xV"},
+  {namaPen:"Muhamad",password:"12345",token:"Muhamad-mR9v"},
+  {namaPen:"Muhammadaldhi",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
+  {namaPen:"Muhammadathar",password:"12345",token:"Muhammad-Y1zD"},
+  {namaPen:"Muhammadfais",password:"12345",token:"Muhammad-6jKq"},
+  {namaPen:"Muhammadhilal",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
+  {namaPen:"Muhammadlucky",password:"12345",token:"Muhammad-u2Gh"},
+  {namaPen:"Muhammadvarel",password:"12345",token:"Muhammad-5eRm"},
+  {namaPen:"Noval",password:"12345",token:"Noval-9kXc"},
+  {namaPen:"Nuven",password:"12345",token:"Mohon Maaf, silahkan hubungi bagian Administrasi"},
+  {namaPen:"Pandu",password:"12345",token:"Pandu-z1Vp"},
+  {namaPen:"Pujo",password:"12345",token:"Pujo-7xMn"},
+  {namaPen:"Riyan",password:"12345",token:"Riyan-L9fS"},
+  {namaPen:"Viko",password:"12345",token:"Viko-v3Kt"},
+  {namaPen:"Adityafirman",password:"12345",token:"Aditya-B5dH"},
+  {namaPen:"Adityaveno",password:"12345",token:"Muhammad-5eRm"},
+  {namaPen:"Akhadian",password:"12345",token:"Akhadian-3jPq"},
+  {namaPen:"Ali",password:"12345",token:"Ali-G6yK"},
+  {namaPen:"Alvin",password:"12345",token:"Alvin-fM0t"},
+  {namaPen:"Arvian",password:"12345",token:"Arvian-2vBc"},
+  {namaPen:"Bayu",password:"12345",token:"Bayu-X9zR"},
+  {namaPen:"Denis",password:"12345",token:"Denis-5sWk"},
+  {namaPen:"Dwi",password:"12345",token:"Dwi-m4Lt"},
+  {namaPen:"Fahrul",password:"12345",token:"Fahrul-Q7pB"},
+  {namaPen:"Farel",password:"12345",token:"Farel-8nJh"},
+  {namaPen:"Firza",password:"12345",token:"Firza-L1vY"},
+  {namaPen:"Gading",password:"12345",token:"Gading-6hNj"},
+  {namaPen:"Galeh",password:"12345",token:"Galeh-9sPr"},
+  {namaPen:"Muhamadafrizal",password:"12345",token:"Muhamad-4zKc"},
+  {namaPen:"Muhamadrapa",password:"12345",token:"Muhamad-x7Tm"},
+  {namaPen:"Muhammadafiqudin",password:"12345",token:"Muhammad-Hn2x"},
+  {namaPen:"Muhammadmuzaki",password:"12345",token:"Muhammad-r9Vs"},
+  {namaPen:"Naufal",password:"12345",token:"Naufal-K7bZ"},
+  {namaPen:"Pramudya",password:"12345",token:"Pramudya-w1Md"},
+  {namaPen:"Ramadhani",password:"12345",token:"Ramadhani-5pHj"},
+  {namaPen:"Wilsen",password:"12345",token:"Wilsen-C0tF"},
+  {namaPen:"Zaenal",password:"12345",token:"Zaenal-B7yG"},
+  {namaPen:"BayuLak",password:"12345",token:"Bayu-x6Nv"},
+  {namaPen:"Akbar",password:"12345",token:"Akbar-S3mK"},
+  {namaPen:"Aldira",password:"12345",token:"Aldira-t9Rc"},
+  {namaPen:"Alya",password:"12345",token:"Alya-P4qD"},
+  {namaPen:"Aziz",password:"12345",token:"Aziz-k8Xm"},
+  {namaPen:"Banyu",password:"12345",token:"Banyu-j1Fb"},
+  {namaPen:"Dika",password:"12345",token:"Dika-v6Gy"},
+  {requested_info: "Dinda", password: "12345", token: "Dinda-W2dN"},
+  {namaPen:"Dinda",password:"12345",token:"Dinda-W2dN"},
+  {namaPen:"Fina",password:"12345",token:"Fina-5zWp"},
+  {namaPen:"Laela",password:"12345",token:"Laela-Qc4L"},
+  {namaPen:"Lailatul",password:"12345",token:"Lailatul-8uXg"},
+  {namaPen:"Lusiana",password:"12345",token:"Lusiana-rN6t"},
+  {namaPen:"Nok",password:"12345",token:"Nok-K3vM"},
+  {namaPen:"Olivia",password:"12345",token:"Olivia-z9Pb"},
+  {namaPen:"Prajna",password:"12345",token:"Prajna-4wRq"},
+  {namaPen:"Putri",password:"12345",token:"Putri-G1hL"},
+  {namaPen:"Qonita",password:"12345",token:"Qonita-f0Ys"},
+  {namaPen:"Raffi",password:"12345",token:"Raffi-9vNc"},
+  {namaPen:"Rangga",password:"12345",token:"Rangga-H2bZ"},
+  {namaPen:"Rina",password:"12345",token:"Rina-5jWv"},
+  {namaPen:"Risma",password:"12345",token:"Risma-M8pL"},
+  {namaPen:"Shabira",password:"12345",token:"Shabira-3tRs"},
+  {namaPen:"Siti",password:"12345",token:"Siti-y9Fk"},
+  {namaPen:"Tri",password:"12345",token:"Tri-d7Xc"},
+  {namaPen:"Tsabut",password:"12345",token:"Tsabut-4mPw"}
+];
 
-        function prosesLogin() {
-            let nis = document.getElementById("nis").value, token = document.getElementById("token").value, mapel = document.getElementById("mapel").value;
-            let pesan = document.getElementById("pesan");
-            
-            let sekarang = new Date();
-            let tglSkrg = sekarang.getFullYear() + "-" + (sekarang.getMonth() + 1).toString().padStart(2, '0') + "-" + sekarang.getDate().toString().padStart(2, '0');
-            let jamSkrg = sekarang.getHours().toString().padStart(2, '0') + ":" + sekarang.getMinutes().toString().padStart(2, '0');
-            let jadwal = jadwalUjian[mapel];
+function login() {
+  const usernameInput = document.getElementById("username").value.trim();
+  const passwordInput = document.getElementById("password").value.trim();
+  const resultDiv = document.getElementById("result");
+  const tombolSoal = document.getElementById("tombolSoal");
 
-            if (tglSkrg !== jadwal.tanggal) { pesan.style.color = "red"; pesan.innerText = `❌ Ujian dijadwalkan tanggal ${jadwal.tanggal}`; return; }
-            if (jamSkrg < jadwal.buka) { pesan.style.color = "orange"; pesan.innerText = `⏳ Belum dibuka! Mulai pukul ${jadwal.buka}`; return; }
-            if (jamSkrg > jadwal.tutup) { pesan.style.color = "red"; pesan.innerText = `🚫 Waktu akses habis pukul ${jadwal.tutup}`; return; }
+  const siswa = dataSiswa.find(s =>
+    s.namaPen.toLowerCase() === usernameInput.toLowerCase() &&
+    s.password === passwordInput
+  );
 
-            pesan.style.color = "blue"; pesan.innerText = "Verifikasi akses...";
-            fetch(`${URL_API}?action=login&nis=${nis}&token=${token}&mapel=${mapel}`).then(r => r.json()).then(d => {
-                if(d.status === "sukses") {
-                    nisSiswaAktif = nis; mapelAktif = mapel;
-                    document.getElementById("halaman-login").style.display = "none";
-                    document.getElementById("halaman-ujian").style.display = "block";
-                    document.getElementById("info-siswa").innerText = `Siswa: ${d.data.nama}`;
-                    document.getElementById("judul-mapel").innerText = "UJIAN " + mapel.toUpperCase();
-                    mulaiUjian();
-                } else { 
-                    pesan.style.color = "red"; 
-                    pesan.innerText = "Akses Ditolak! Cek Token atau Administrasi Pembayaran."; 
-                }
-            });
-        }
+  if (siswa) {
+    resultDiv.innerHTML = `
+      <div class="token-box">
+        <div class="success"><strong>Login Berhasil!</strong></div>
+        <div class="info-row">
+          <span><strong>Username:</strong></span>
+          <span>${siswa.namaPen}</span>
+        </div>
+        <div class="info-row">
+          <span><strong>Token:</strong></span>
+          <span>${siswa.token}</span>
+        </div>
+        <div class="note">
+          Username & Token digunakan untuk mengerjakan soal,
+          silahkan diingat-ingat.
+        </div>
+      </div>
+    `;
 
-        function mulaiUjian() {
-            timerInterval = setInterval(() => {
-                durasiUjian--;
-                let m = Math.floor(durasiUjian/60), s = durasiUjian%60;
-                document.getElementById("waktu-ujian").innerText = `${m}:${s.toString().padStart(2,'0')}`;
-                if(durasiUjian<=0) { clearInterval(timerInterval); kirimJawaban(); }
-            }, 1000);
-            fetch(`${URL_API}?action=getSoal&mapel=${mapelAktif}`).then(r => r.json()).then(d => {
-                bankSoal = d.data; document.getElementById("area-navigasi").style.display = "flex"; tampilkanSoal(0);
-            });
-        }
+    // Cek apakah token valid
+    if (!siswa.token.includes("Mohon Maaf")) {
+      tombolSoal.classList.remove("hidden");
+    } else {
+      tombolSoal.classList.add("hidden");
+    }
 
-        function tampilkanSoal(idx) {
-            indexSoalSaatIni = idx;
-            let s = bankSoal[idx], j = jawabanSiswa[s.id_soal.toString()] || "";
-            let imgQ = s.link_gambar ? `<img src="${s.link_gambar}" style="max-width:100%; margin-bottom:15px;">` : "";
-            const renderOpsi = (label, teks, img) => `
-                <label class="opsi-jawaban">
-                    <input type="radio" name="q" onchange="simpanPilihan('${s.id_soal}', '${label}')" ${j===label?'checked':''}> 
-                    <b>${label}.</b> ${teks}
-                    ${img ? `<img src="${img}" class="img-opsi">` : ""}
-                </label>`;
-            document.getElementById("area-soal").innerHTML = `
-                ${imgQ} <p><b>${idx+1}. ${s.pertanyaan}</b></p>
-                ${renderOpsi('A', s.pil_a, s.img_a)} ${renderOpsi('B', s.pil_b, s.img_b)}
-                ${renderOpsi('C', s.pil_c, s.img_c)} ${renderOpsi('D', s.pil_d, s.img_d)}
-                ${renderOpsi('E', s.pil_e, s.img_e)}
-            `;
-            let btn = document.getElementById("btn-next");
-            btn.innerText = idx === bankSoal.length-1 ? "SELESAI" : "Selanjutnya";
-            btn.style.background = idx === bankSoal.length-1 ? "#dc3545" : "#007bff";
-            btn.onclick = idx === bankSoal.length-1 ? konfirmasiSelesai : () => tampilkanSoal(idx+1);
-        }
+  } else {
+    resultDiv.innerHTML = "<div class='error'>Username atau password salah!</div>";
+    tombolSoal.classList.add("hidden");
+  }
+}
+</script>
 
-        function simpanPilihan(idSoal, label) { jawabanSiswa[idSoal.toString()] = label; }
-
-        function konfirmasiSelesai() {
-            let backupTilang = jumlahPelanggaran;
-            jumlahPelanggaran = -999; 
-            let belumDijawab = [];
-            bankSoal.forEach((soal) => { if (!jawabanSiswa[soal.id_soal.toString()]) belumDijawab.push(soal.id_soal); });
-
-            if (belumDijawab.length > 0) {
-                alert(`⚠️ BELUM LENGKAP!\n\nMasih ada ${belumDijawab.length} soal yang belum dijawab.\nID Soal: ${belumDijawab.join(", ")}\n\nSilakan cek kembali.`);
-                setTimeout(() => { jumlahPelanggaran = backupTilang; }, 500);
-            } else {
-                if (confirm("Yakin ingin mengirim jawaban sekarang?")) { 
-                    clearInterval(timerInterval); 
-                    kirimJawaban(); 
-                } else {
-                    setTimeout(() => { jumlahPelanggaran = backupTilang; }, 500);
-                }
-            }
-        }
-
-        function kirimJawaban() {
-            jumlahPelanggaran = -999;
-            document.getElementById("area-soal").innerHTML = "<h2>Sedang menyimpan nilai...</h2>";
-            fetch(`${URL_API}?action=submit&nis=${nisSiswaAktif}&mapel=${mapelAktif}&jawaban=${encodeURIComponent(JSON.stringify(jawabanSiswa))}`)
-            .then(() => { 
-                alert("Jawaban Berhasil Terkirim!");
-                resetKeLogin("Ujian sebelumnya sukses disimpan.");
-                document.getElementById("pesan").style.color = "green";
-            });
-        }
-
-        function gantiSoal(arah) { if(bankSoal[indexSoalSaatIni+arah]) tampilkanSoal(indexSoalSaatIni+arah); }
-    </script>
 </body>
 </html>
+
+
+siswa yang bisa login baru sampai Aldira saja setelahnya ngga bisa
